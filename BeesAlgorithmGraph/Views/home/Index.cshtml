@@ -1,0 +1,138 @@
+﻿
+@{
+    Layout = null;
+}
+
+@{ 
+    var parameters = (int[])ViewData["parameters"];
+    var VarSize = (int)ViewData["VarSize"];
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" charset="utf-8" />
+    <title>Index</title>
+    <link rel="stylesheet" href="~\Content\Style.css" />
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+    <script src="@Url.Content("~/Models/bootstrap-dropdown.js")"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+
+    <script type="text/javascript">
+        if (@parameters[0] > 0) {
+
+
+        $.get("/home/json/", function (data) {
+            var chart = new CanvasJS.Chart("chartContainer", {
+                animationEnabled: true,
+                theme: "theme2",//theme1
+                data: [
+                  {
+                    type: "line",
+                    dataPoints: data
+                  }
+                ],
+                 axisY: {
+                    logarithmic: true
+                },
+            });
+
+            chart.render();
+        });
+
+    };
+    </script>
+    <style>
+        body {
+            margin: 0;
+            font-family: sans-serif;
+            margin-bottom: 40px;
+        }
+
+        input[type="text"], input[type="submit"] {
+            display: block;
+            margin: 3px 0 10px 0;
+            height: 34px;
+            border-radius: 4px;
+            border: 1px solid rgba(0,0,0,0.2);
+            width: 219px;
+            padding-left: 10px;
+        }
+
+        label {
+            font-size: 14px;
+            color: rgba(0,0,0,0.5);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    
+    <div style="height: 58px; background-color: #21adba; box-shadow: 0 0 7px;">
+        <p style="text-align: center; font-size: 30px; font-weight: bold; color: #e8eaea; margin: 0; font-family: sans-serif;
+        padding-top: 10px">Bees Algrorithm</p>
+    </div>
+    <div id="chartContainer" style=" margin: auto;position:relative;top:353px;width:646px">
+    </div>
+
+    <form action="/home/Array" method="get">
+        <div style="position: relative;top:40px;width:700px;margin:auto;margin-top:15px">
+
+            <p style="font-size: 21px; font-weight: bold; color: rgba(0,0,0,0.6)">Укажите параметры алгоритма</p>
+            <div style="display: inline-block; margin-right:20px;width:211px;margin-top:15px">
+                <label>
+                    Количество пчёл
+                    <input id="names" name="names" type="text" />
+                </label>
+                <label>
+                    Размерность пространства
+                    <input id="names" name="name" type="text" value="@VarSize" disabled/>
+                </label>
+            </div>
+            <div style="display: inline-block;width:211px;margin-top:15px">
+                <label>
+                    Количество итераций
+                    <input id="names" name="names" type="text" />
+                </label>
+                <label>
+                    Нижняя граница значений
+                    <input id="names" name="names" type="text" />
+                </label>
+            </div>
+            <div style="display: inline-block; margin-left: 20px;vertical-align:top;margin-top:15px">
+                <label>
+                    Верхняя граница значений
+                    <input id="names" name="names" type="text" />
+                </label>
+                
+                    <p style="font-size: 14px;color: rgba(0,0,0,0.5);font-weight: bold;margin-bottom:3px">Целевая функция</p>
+                    <select class="selectpicker" name="names">
+                        <option >Функция Шаффера</option>
+                        <option >Сферическая функция</option>
+                        <option >Функция Griewank</option>
+                        <option >Функция Растригина</option>
+                        <option >Функция Розенброка</option>
+                    </select>
+               
+</div>
+
+        </div>
+
+
+
+        <input type="submit" style="position: relative;left: 50%;transform: translateX(-50%);top: 69px;
+        background-color:#22939e;color:#e8eaea;font-weight:bold;border:none;box-shadow: 0 1px 3px black;font-size:16px;
+        margin-top:15px" value="Построить" />
+    </form>
+    <div id="chartContainer" style="width: 800px; margin: auto;">
+    </div>
+
+   
+ 
+</body>
+</html>
